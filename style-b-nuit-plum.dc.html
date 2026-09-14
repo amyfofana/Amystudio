@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  body { margin: 0; background: #140F14; -webkit-font-smoothing: antialiased; }
+  a { color: #FF8FB1; text-decoration: none; }
+  a:hover { color: #FFFFFF; }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; background: radial-gradient(120% 80% at 20% 0%, #241726 0%, #140F14 60%); color: #F4EAF0; font-family: 'Space Grotesk', -apple-system, sans-serif; padding-bottom: 80px;">
+
+  <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding: 22px 32px; border-bottom: 1px solid rgba(255,143,177,0.14);">
+    <span style="font-size: 18px; font-weight: 700; letter-spacing: -0.6px;">amy<span style="color: #FF8FB1;">.studio</span></span>
+    <div style="display: flex; gap: 6px; padding: 4px; border-radius: 999px; background: rgba(255,143,177,0.07); border: 1px solid rgba(255,143,177,0.12);">
+      <span style="padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; background: #FF8FB1; color: #1A0F16;">Dashboard</span>
+      <span style="padding: 8px 16px; border-radius: 999px; font-size: 13px; color: #B79AAB;">Calendrier</span>
+      <span style="padding: 8px 16px; border-radius: 999px; font-size: 13px; color: #B79AAB;">Board</span>
+      <span style="padding: 8px 16px; border-radius: 999px; font-size: 13px; color: #B79AAB;">Canada</span>
+    </div>
+  </div>
+
+  <div style="padding: 44px 32px 0; max-width: 1180px; margin: 0 auto;">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase; color: #FF8FB1;">Ven. 11 sept · semaine 38</span>
+    <h1 style="margin: 12px 0 34px; font-size: 46px; line-height: 1.02; letter-spacing: -2px; font-weight: 700; max-width: 620px;">Trois tournages<br />te séparent d'une<br />semaine d'avance.</h1>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+      <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+        <div style="background: rgba(255,255,255,0.035); border: 1px solid rgba(255,143,177,0.14); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 14px; transition: all 260ms cubic-bezier(0.4,0,0.2,1);" style-hover="background: rgba(255,143,177,0.09); transform: translateY(-3px)">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 1.4px; text-transform: uppercase; color: #B79AAB;">{{ s.label }}</span>
+          <span style="font-size: 46px; font-weight: 700; letter-spacing: -2.4px; line-height: 1; color: {{ s.color }};">{{ s.value }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding: 40px 32px 0; max-width: 1180px; margin: 0 auto;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.8px;">Pipeline</h2>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #B79AAB;">drag & drop</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; align-items: start;">
+      <sc-for list="{{ columns }}" as="col" hint-placeholder-count="4">
+        <div style="background: rgba(255,255,255,0.03); border-radius: 20px; padding: 14px 12px 16px; display: flex; flex-direction: column; gap: 10px; min-height: 220px;">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 0 6px 4px;">
+            <span style="width: 7px; height: 7px; border-radius: 50%; background: {{ col.color }};"></span>
+            <span style="font-size: 13px; font-weight: 500; letter-spacing: -0.2px;">{{ col.title }}</span>
+            <span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7E6874;">{{ col.count }}</span>
+          </div>
+          <sc-for list="{{ col.posts }}" as="p" hint-placeholder-count="2">
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,143,177,0.1); border-radius: 14px; padding: 13px 14px; display: flex; flex-direction: column; gap: 10px; cursor: grab; transition: all 260ms cubic-bezier(0.4,0,0.2,1);" style-hover="background: rgba(255,143,177,0.12); border-color: rgba(255,143,177,0.32); transform: translateY(-2px)">
+              <span style="font-size: 14px; line-height: 1.35; letter-spacing: -0.2px;">{{ p.title }}</span>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.6px; text-transform: uppercase; padding: 3px 7px; border-radius: 6px; background: rgba(255,255,255,0.07); color: #B79AAB;">{{ p.format }}</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.6px; text-transform: uppercase; padding: 3px 7px; border-radius: 6px; background: rgba(255,143,177,0.16); color: #FF8FB1;">{{ p.effort }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      stats: [
+        { label: 'Idées', value: '8', color: '#F4EAF0' },
+        { label: 'À filmer', value: '3', color: '#FF8FB1' },
+        { label: 'En production', value: '4', color: '#F4EAF0' },
+        { label: 'Postés', value: '1', color: '#F4EAF0' }
+      ],
+      columns: [
+        { title: 'À filmer', count: '3', color: '#FF8FB1', posts: [
+          { title: 'GRWM première soirée à Montréal', format: 'GRWM', effort: 'Moyen' },
+          { title: 'Haul pharmacie canadienne', format: 'Haul', effort: 'Moyen' },
+          { title: 'Routine skincare grand froid', format: 'Tuto', effort: 'Élevé' }
+        ]},
+        { title: 'À monter', count: '2', color: '#D46C96', posts: [
+          { title: '3 produits qui survivent au -20°', format: 'Review', effort: 'Faible' },
+          { title: 'Transition blush rose ↔ érable', format: 'Transition', effort: 'Élevé' }
+        ]},
+        { title: 'À poster', count: '2', color: '#A8577C', posts: [
+          { title: 'Ma trousse de voyage minimaliste', format: 'Vlog', effort: 'Faible' },
+          { title: "Nail art feuilles d'automne", format: 'Tuto', effort: 'Moyen' }
+        ]},
+        { title: 'Postés', count: '1', color: '#7E4462', posts: [
+          { title: 'Coiffure anti-tuque', format: 'Tuto', effort: 'Faible' }
+        ]}
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  body { margin: 0; background: #F7F4F1; -webkit-font-smoothing: antialiased; }
+  a { color: #B23A63; text-decoration: none; }
+  a:hover { color: #1C1A19; }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; background: #F7F4F1; color: #1C1A19; font-family: 'Instrument Sans', -apple-system, sans-serif;">
+
+  <div style="border-bottom: 1px solid #1C1A19; padding: 18px 40px; display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+    <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 26px; letter-spacing: -0.5px;">Amy <span style="font-style: italic; color: #B23A63;">Studio</span></span>
+    <div style="display: flex; gap: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase;">
+      <span style="border-bottom: 2px solid #B23A63; padding-bottom: 3px;">Dashboard</span>
+      <span style="color: #8A8480;">Calendrier</span>
+      <span style="color: #8A8480;">Board</span>
+      <span style="color: #8A8480;">Canada</span>
+    </div>
+  </div>
+
+  <div style="padding: 56px 40px 32px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px; align-items: end; border-bottom: 1px solid #DCD5CE;">
+    <div>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: #8A8480;">Semaine 38 — 11 sept 2026</span>
+      <h1 style="margin: 14px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-size: 68px; line-height: 0.95; letter-spacing: -2px; font-weight: 400;">Huit idées,<br /><span style="font-style: italic; color: #B23A63;">trois</span> à filmer.</h1>
+    </div>
+    <p style="margin: 0 0 8px; font-size: 15px; line-height: 1.65; color: #57514D; max-width: 380px; text-wrap: pretty;">Bloque deux heures de tournage cette semaine et la colonne « À filmer » se vide d'un coup. Le montage suivra tout seul.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid #DCD5CE;">
+    <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+      <div style="padding: 28px 24px 30px; border-right: 1px solid #DCD5CE; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 1.4px; text-transform: uppercase; color: #8A8480;">{{ s.label }}</span>
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 54px; line-height: 1; letter-spacing: -2px;">{{ s.value }}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="padding: 40px 40px 80px;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px;">
+      <h2 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-size: 28px; font-weight: 400; letter-spacing: -0.6px;">Content board</h2>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #8A8480;">Glisser pour déplacer</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: #DCD5CE; border: 1px solid #DCD5CE;">
+      <sc-for list="{{ columns }}" as="col" hint-placeholder-count="4">
+        <div style="background: #F7F4F1; padding: 18px 18px 24px; display: flex; flex-direction: column; gap: 16px; min-height: 260px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 1.4px; text-transform: uppercase;">{{ col.title }}</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8A8480;">{{ col.count }}</span>
+          </div>
+          <sc-for list="{{ col.posts }}" as="p" hint-placeholder-count="2">
+            <div style="border-top: 1px solid #1C1A19; padding-top: 12px; display: flex; flex-direction: column; gap: 7px; cursor: pointer; transition: opacity 200ms ease;" style-hover="opacity: 0.55">
+              <span style="font-size: 15px; line-height: 1.3; letter-spacing: -0.2px;">{{ p.title }}</span>
+              <div style="display: flex; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: #8A8480;">
+                <span>{{ p.format }}</span>
+                <span style="color: #B23A63;">{{ p.effort }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      stats: [
+        { label: 'Idées', value: '08' },
+        { label: 'À filmer', value: '03' },
+        { label: 'En production', value: '04' },
+        { label: 'Postés', value: '01' }
+      ],
+      columns: [
+        { title: 'À filmer', count: '03', posts: [
+          { title: 'GRWM première soirée à Montréal', format: 'GRWM', effort: 'Moyen' },
+          { title: 'Haul pharmacie canadienne', format: 'Haul', effort: 'Moyen' },
+          { title: 'Routine skincare grand froid', format: 'Tutoriel', effort: 'Élevé' }
+        ]},
+        { title: 'À monter', count: '02', posts: [
+          { title: '3 produits qui survivent au -20°', format: 'Review', effort: 'Faible' },
+          { title: 'Transition blush rose ↔ érable', format: 'Transition', effort: 'Élevé' }
+        ]},
+        { title: 'À poster', count: '02', posts: [
+          { title: 'Ma trousse de voyage minimaliste', format: 'Vlog', effort: 'Faible' },
+          { title: "Nail art feuilles d'automne", format: 'Tutoriel', effort: 'Moyen' }
+        ]},
+        { title: 'Postés', count: '01', posts: [
+          { title: 'Coiffure anti-tuque', format: 'Tutoriel', effort: 'Faible' }
+        ]}
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>
